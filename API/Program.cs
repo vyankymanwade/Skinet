@@ -20,6 +20,7 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCors("CorsPolicy");
+
 app.MapControllers();
 
 
