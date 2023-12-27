@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IPagination } from './shared/models/IPagination';
+import { IProduct } from './shared/models/IProduct';
+import { ShopService } from './shop/shop.service';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +11,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'Client';
-
-  products:any = [];
-  constructor(private http:HttpClient){
+  constructor(){
 
   }
 
   ngOnInit(): void {
-      this.http.get('http://localhost:5001/api/Product/products').subscribe((data:any) =>{
-        this.products = data?.data;
-      },(error) =>{
-        console.log('something went wrong while fetching products')
-      })
   }
+
 }
