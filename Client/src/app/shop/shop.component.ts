@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IBrand } from '../shared/models/IBrand';
 import { IProduct } from '../shared/models/IProduct';
 import { IType } from '../shared/models/IType';
+import { ShopParams } from '../shared/models/ShopParams';
 import { ShopService } from './shop.service';
 
 @Component({
@@ -15,9 +16,9 @@ export class ShopComponent implements OnInit{
   brands:IBrand[] = [];
   types:IType[] = [];
 
-  selectedBrandId?:number = 0;
-  selectedTypeId?:number = 0;
-  selectedSortOption:string = 'name';
+  totalCount : number = 0;
+
+  shopParams:ShopParams = new ShopParams();
 
   sortOptions = [
     {name:'Alphabetical',value:'name'},
@@ -34,8 +35,11 @@ export class ShopComponent implements OnInit{
   }
   
   getProducts(){
-    this.shopService.getProducts(this.selectedBrandId,this.selectedTypeId,this.selectedSortOption).subscribe((data) => {
+    this.shopService.getProducts(this.shopParams).subscribe((data) => {
       this.products = data.data;
+      this.shopParams.pageNumber = data.pageIndex;
+      this.shopParams.pageSize = data.pageSize;
+      this.totalCount = data.count;
     },(error) =>{
       console.log('something went wrong while fetching products')
     })
@@ -58,19 +62,28 @@ export class ShopComponent implements OnInit{
   }
 
   onBrandSelected(brandId:number){
-    this.selectedBrandId = brandId;
+    this.shopParams.brandId = brandId;
 
     this.getProducts();
   }
 
   onTypeSelected(typeId:number){
-    this.selectedTypeId = typeId;
+    this.shopParams.typeId = typeId;
 
     this.getProducts();
   }
 
   onFilterChange(event:any){
-    this.selectedSortOption = event.target.value;
+    this.shopParams.sort = event.target.value;
+    this.getProducts();
+  }
+
+  onSearch(){
+    this.getProducts();
+  }
+
+  onReset(){
+    this.shopParams = new ShopParams();
     this.getProducts();
   }
 }
