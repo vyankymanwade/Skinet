@@ -10,7 +10,8 @@ const routes:Route[] = [
     },
     {
         path:':id',
-        component:ProductDetailsComponent
+        component:ProductDetailsComponent,
+        data:{breadcrumb:{alias:'productDetails'}}
     }
 ]
 
