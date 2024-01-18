@@ -1,25 +1,30 @@
-<div class="row" *ngIf="product">
-    <div class="col-6">
-        <img src="{{product.pictureUrl}}" alt="{{product.name}}">
-    </div>
-
-    <div class="col-6">
-        <div>
-            <h3>{{product.name}}</h3>
-            <p style="font-size: 2em;">{{product.price | currency}}</p>
-            <div class="d-flex align-items-center justify-content-start">
-                <div class="d-flex align-items-center me-2">
-                    <i class="fa fa-minus-circle me-2 text-warning" style="cursor: pointer;font-size: 2em;"></i>
-                    <span class="me-2">{{"2"}}</span>
-                    <i class="fa fa-plus-circle me-2 text-warning" style="cursor: pointer;font-size: 2em;"></i>
-                </div>
-                <button class="btn btn-outline-secondary">Add To Cart</button>
-            </div>
+<div class="container">
+    <div class="row" *ngIf="product">
+        <div class="col-6">
+            <img src="{{product.pictureUrl}}" alt="{{product.name}}">
         </div>
-
-        <div class="d-flex flex-column mt-4">
-            <h4>Description</h4>
-            <p>{{product.description}}</p>
+    
+        <div class="col-6">
+            <div>
+                <h3>{{product.name}}</h3>
+                <p style="font-size: 2em;">{{product.price | currency}}</p>
+                <h4 class="mb-3 text-primary" *ngIf="quantityInBasket > 0">
+                    You have {{quantityInBasket}} Of this item
+                </h4>
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="d-flex align-items-center me-2">
+                        <i class="fa fa-minus-circle me-2 text-warning" style="cursor: pointer;font-size: 2em;" (click)="decrementQuantity()"></i>
+                        <span class="me-2">{{quantity}}</span>
+                        <i class="fa fa-plus-circle me-2 text-warning" style="cursor: pointer;font-size: 2em;" (click)="incrementQuantity()"></i>
+                    </div>
+                    <button class="btn btn-outline-secondary" (click)="updateBasket()">{{getButtonText}}</button>
+                </div>
+            </div>
+    
+            <div class="d-flex flex-column mt-4">
+                <h4>Description</h4>
+                <p>{{product.description}}</p>
+            </div>
         </div>
     </div>
 </div>
