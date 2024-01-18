@@ -17,7 +17,7 @@
                         <span class="me-2">{{quantity}}</span>
                         <i class="fa fa-plus-circle me-2 text-warning" style="cursor: pointer;font-size: 2em;" (click)="incrementQuantity()"></i>
                     </div>
-                    <button class="btn btn-outline-secondary" (click)="updateBasket()">{{getButtonText}}</button>
+                    <button class="btn btn-outline-secondary" [disabled]="quantity == quantityInBasket" (click)="updateBasket()">{{getButtonText}}</button>
                 </div>
             </div>
     
